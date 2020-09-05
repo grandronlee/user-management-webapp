@@ -28,8 +28,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity addUser(UserEntity userEntity) {
-        //TODO add user - check user exist
         return userStorage.addUser(userEntity);
+    }
+
+    @Override
+    public Optional<UserEntity> updateUser(UserEntity userEntity) {
+       return userStorage.updateUser(userEntity);
     }
     
 }

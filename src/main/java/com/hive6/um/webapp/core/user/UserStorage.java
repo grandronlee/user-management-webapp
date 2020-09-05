@@ -21,4 +21,12 @@ public class UserStorage {
     public UserEntity addUser(UserEntity userEntity) {
         return userRepository.save(userEntity);
     }
+
+    public Optional<UserEntity> updateUser(UserEntity userEntity) {
+        return userRepository.findById(userEntity.getId())
+        .map(UserEntity -> {
+          userEntity.setName(userEntity.getName());
+          return userRepository.save(userEntity);
+        });
+    }
 }

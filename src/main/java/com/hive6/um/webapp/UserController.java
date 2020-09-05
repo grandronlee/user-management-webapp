@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +35,15 @@ public class UserController {
         UserEntity user = new UserEntity();
         user.setName(newUser.getName());
         user.setEmail(newUser.getEmail());
+		return userService.addUser(user);
+    }
+
+    @PutMapping("/user")
+    public @ResponseBody UserEntity updateUser(@RequestBody UserRequestBody updateUser) {
+        UserEntity user = new UserEntity();
+        user.setId(updateUser.getId());
+        user.setEmail(updateUser.getEmail());
+        user.setName(updateUser.getName());
 		return userService.addUser(user);
     }
 }

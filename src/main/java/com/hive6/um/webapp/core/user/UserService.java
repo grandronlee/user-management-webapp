@@ -7,4 +7,5 @@ public interface UserService {
     public List<UserEntity> getUsers();
     public Optional<UserEntity> getUsers(Long id);
     public UserEntity addUser(UserEntity userEntity);
+    public Optional<UserEntity> updateUser(UserEntity userEntity);
 }
