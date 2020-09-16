@@ -15,7 +15,7 @@ public class UserStorage {
     }
 
     public Optional<UserEntity> getUser(Long id) {
-        return userRepository.findById(id);
+        return userRepository.findByUserId(id);
     }
 
     public UserEntity addUser(UserEntity userEntity) {

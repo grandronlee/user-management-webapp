@@ -1,11 +1,14 @@
 package com.hive6.um.webapp;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.hive6.um.webapp.core.user.UserEntity;
 import com.hive6.um.webapp.core.user.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,13 +24,18 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/users/{id}")
-    public @ResponseBody Optional<UserEntity> getUser(@PathVariable Long id) {
-        return userService.getUsers(id);
+    public ResponseEntity<UserEntity> getUser(@PathVariable Long id) {
+        Optional<UserEntity> user = userService.getUsers(id);
+        if (!user.isPresent()) {
+            //log.error("Id " + id + " is not existed");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new UserEntity());
+        }
+        return ResponseEntity.ok(user.get());
     }
 
     @GetMapping("/users")
-	public @ResponseBody Iterable<UserEntity> getAllUsers() {
-        return userService.getUsers();
+	public ResponseEntity<List<UserEntity>> getAllUsers() {
+        return ResponseEntity.ok(userService.getUsers());
     }
     
     @PostMapping("/user")
